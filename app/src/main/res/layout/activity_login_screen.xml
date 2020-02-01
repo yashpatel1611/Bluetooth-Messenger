@@ -6,16 +6,28 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentRight="true"
     android:layout_centerHorizontal="true"
-    tools:context=".MainActivity"
+    tools:context=".LoginScreen"
     tools:ignore="ExtraText">
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
         tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="false"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:layout_marginTop="41dp"
+        android:alpha="1"
+        android:text="Welcome to BlueChat"
+        android:textSize="30sp" />
 
 
 </RelativeLayout>

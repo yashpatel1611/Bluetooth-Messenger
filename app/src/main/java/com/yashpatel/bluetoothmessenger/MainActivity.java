@@ -35,12 +35,11 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.sign_in_button:
-                        signIn(mGoogleSignInClient);
-                        break;
+                if (v.getId() == R.id.sign_in_button) {
+                    signIn(mGoogleSignInClient);
                 }
             }
+
         });
     }
 
@@ -87,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("Error", "signInResult:failed code=" + e.getStatusCode());
 
+        } catch (NullPointerException e) {
+            Log.w("Error", e);
         }
     }
 }

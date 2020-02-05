@@ -3,8 +3,8 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android">
     <translate
         android:startOffset="2000"
-        android:fromYDelta="0"
-        android:toYDelta="600"
+        android:fromYDelta="600"
+        android:toYDelta="0"
         android:duration="2000"/>
 
 

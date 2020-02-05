@@ -2,7 +2,7 @@
 
 <set xmlns:android="http://schemas.android.com/apk/res/android">
     <alpha
-        android:startOffset="2500"
+        android:startOffset="4500"
         android:duration="2000"
         android:fillAfter="true"
         android:fromAlpha="0.0"

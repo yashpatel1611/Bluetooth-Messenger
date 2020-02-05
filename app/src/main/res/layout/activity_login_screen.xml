@@ -6,6 +6,7 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentRight="true"
     android:layout_centerHorizontal="true"
+    android:theme="@style/Theme.AppCompat.NoActionBar"
     tools:context=".LoginScreen"
     tools:ignore="ExtraText">
 
@@ -29,7 +30,7 @@
         android:layout_centerInParent="false"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="false"
-        android:layout_marginTop="60sp"
+        android:layout_marginTop="90sp"
         android:alpha="1"
         android:text="Welcome to BlueChat"
         android:textSize="30sp" />
@@ -38,11 +39,10 @@
         android:id="@+id/signInPromptTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/loginScreenTV"
         android:layout_alignParentStart="false"
         android:layout_alignParentEnd="false"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="200sp"
         android:layout_marginEnd="45dp"
         android:text="Please sign in with your Google Account"
         android:textSize="18sp" />

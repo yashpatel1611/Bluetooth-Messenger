@@ -8,6 +8,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -16,11 +18,8 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 
 public class LoginScreen extends AppCompatActivity {
-
     private static final int RC_SIGN_IN = 9001;
 
     TextView loginScreenTV;
@@ -65,10 +64,16 @@ public class LoginScreen extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-//        if (account != null) {
-//            setContentView(R.layout.activity_main_screen);
-//
-//        }
+        if (account != null) {
+            mainActivitySwitch();
+
+        }
+    }
+
+    private void mainActivitySwitch() {
+        Intent mainActivityIntent = new Intent(this, com.yashpatel.bluetoothmessenger.MainActivity.class);
+        startActivity(mainActivityIntent);
+        this.finish();
     }
 
     private void signIn(GoogleSignInClient mGoogleSignInClient) {
@@ -95,7 +100,7 @@ public class LoginScreen extends AppCompatActivity {
 
             // Signed in successfully, show authenticated UI.
             Log.e("account", account.getDisplayName() + account.getEmail() + account.getAccount());
-//            setContentView(R.layout.activity_main_screen);
+            mainActivitySwitch();
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -118,27 +123,12 @@ public class LoginScreen extends AppCompatActivity {
 
         final Animation translateAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_x);
 
-        textAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                signInButton.setVisibility(View.VISIBLE);
-                signInPromptTV.setVisibility(View.VISIBLE);
-                signInButton.startAnimation(buttonAnimation);
-                signInPromptTV.startAnimation(fadeInAnimation);
-                loginScreenTV.startAnimation(translateAnimation);
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
+        loginScreenTV.setVisibility(View.VISIBLE);
         loginScreenTV.startAnimation(textAnimation);
+        loginScreenTV.startAnimation(translateAnimation);
+        signInPromptTV.setVisibility(View.VISIBLE);
+        signInButton.setVisibility(View.VISIBLE);
+        signInPromptTV.startAnimation(fadeInAnimation);
+        signInButton.startAnimation(buttonAnimation);
     }
 }

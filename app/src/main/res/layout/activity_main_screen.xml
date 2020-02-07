@@ -62,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:text="Contacts" />
         </com.google.android.material.tabs.TabLayout>
+
     </androidx.viewpager.widget.ViewPager>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

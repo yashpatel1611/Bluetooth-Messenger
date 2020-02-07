@@ -1,6 +1,7 @@
 package com.yashpatel.bluetoothmessenger;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +15,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    BluetoothAdapter bAdapter;
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -38,6 +44,21 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
 
+        List<String> nearbyDevices = new ArrayList<>(getNearbyDevicesList());
+
+
+
+    }
+
+    private List<String> getNearbyDevicesList() {
+        List<BluetoothDevice> nearbyDevices = new ArrayList<>();
+        nearbyDevices.addAll(bAdapter.getBondedDevices());
+        List<String> nearbyDevicesList = new ArrayList<>();
+        for (int i = 0; i < nearbyDevices.size(); i++) {
+            nearbyDevicesList.add(nearbyDevices.get(i).getName());
+        }
+        return nearbyDevicesList;
+
 
     }
 
@@ -50,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void bluetoothIntialisation() {
 
-        BluetoothAdapter bAdapter = BluetoothAdapter.getDefaultAdapter();
+        bAdapter = BluetoothAdapter.getDefaultAdapter();
 
         if (bAdapter == null) {
             Toast.makeText(this, "Error: No Bluetooth module found on device", Toast.LENGTH_LONG).show();

@@ -21,10 +21,13 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 fragment = new everyone_fragment();
                 break;
             case 1:
+                fragment = new nearby_fragment();
                 break;
             case 2:
+                fragment = new chats_fragment();
                 break;
             case 3:
+                fragment = new contacts_fragment();
                 break;
         }
         return fragment;
@@ -39,22 +42,22 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        CharSequence title = null;
+        CharSequence pageTitle = null;
 
         switch (position) {
             case 0:
-                title = "Everyone";
+                pageTitle = "Everyone";
                 break;
             case 1:
-                title = "Nearby";
+                pageTitle = "Nearby";
                 break;
             case 2:
-                title = "Chats";
+                pageTitle = "Chats";
                 break;
             case 3:
-                title = "Contacts";
+                pageTitle = "Contacts";
                 break;
         }
-        return title;
+        return pageTitle;
     }
 }

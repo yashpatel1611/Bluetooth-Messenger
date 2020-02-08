@@ -8,8 +8,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -18,45 +16,48 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+// Import all libraries needed to allow Google Sign-In authentication
+
 
 public class LoginScreen extends AppCompatActivity {
-    private static final int RC_SIGN_IN = 9001;
+    private static final int RC_SIGN_IN = 9001; //Request code for google sign in
 
-    TextView loginScreenTV;
-    TextView signInPromptTV;
-    SignInButton signInButton;
+    TextView loginScreenTV; // TextView object for holding the welcome text on activity
+    TextView signInPromptTV; // TextView object for holding the sign in prompt on activity
+    SignInButton signInButton; // SignInButton object - this is the actual sign in button
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_screen);
+        setContentView(R.layout.activity_login_screen); // Show the login screen activity
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
-                .build();
+                .build(); // This allows me to start the google sign in intent
 
-        final GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        final GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso); //assign client to client variable
 
-        signInButton = findViewById(R.id.signInButton);
-        signInButton.setColorScheme(1);
-        signInButton.setVisibility(View.INVISIBLE);
+        signInButton = findViewById(R.id.signInButton); // Hook the button on xml activity to java variable
+        signInButton.setColorScheme(1); // Set the colour scheme of the button to light - just looks better in my opinion
+        signInButton.setVisibility(View.INVISIBLE); // Set it to be invisible for now, will be made visible
 
-        loginScreenTV = findViewById(R.id.loginScreenTV);
-        signInPromptTV = findViewById(R.id.signInPromptTV);
-        signInPromptTV.setVisibility(View.INVISIBLE);
+        loginScreenTV = findViewById(R.id.loginScreenTV); // Hook the welcome text on activity to java variable
+        signInPromptTV = findViewById(R.id.signInPromptTV); // Hook the sign in prompt text to variable
+        signInPromptTV.setVisibility(View.INVISIBLE); // Set the visibility of prompt off - allows for easier animations
 
+        // Below is a method call to set a function on clicking the sign in button => starts sign in process
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (v.getId()) {
-                    case (R.id.signInButton):
-                        signIn(mGoogleSignInClient);
-                        break;
+                if (v.getId() == R.id.signInButton) {
+                    signIn(mGoogleSignInClient);
                 }
             }
         });
 
-        runAnimations();
+        runAnimations(); // Backgroup setups are finished -> start runAnimations function for user
 
 
     }
@@ -111,24 +112,30 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
+    // This procedure handles all the animations presented to the user
     private void runAnimations() {
-        final Animation textAnimation = AnimationUtils.loadAnimation(this, R.anim.welcome_text_view_animations);
-        textAnimation.reset();
+        // Create variable for the welcome text animation and reset it to the start
+        final Animation loginScreenTVAnimation = AnimationUtils.loadAnimation(this, R.anim.welcome_text_view_animations);
+        loginScreenTVAnimation.reset();
 
+        // Create variable for the sign in button animation and reset it to the start
         final Animation buttonAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_animations);
         buttonAnimation.reset();
 
-        final Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_promt_animations);
-        fadeInAnimation.reset();
+        // Create variable for the fade in animation and reset it to the start -> This is different as it needs to be offset
+        final Animation signInPromptTVAnimations = AnimationUtils.loadAnimation(this, R.anim.sign_in_promt_animations);
+        signInPromptTVAnimations.reset();
 
-        final Animation translateAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_x);
+        // Create variable for the movement animation and reset it to the start
+        final Animation translateAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_y);
+        translateAnimation.reset();
 
-        loginScreenTV.setVisibility(View.VISIBLE);
-        loginScreenTV.startAnimation(textAnimation);
-        loginScreenTV.startAnimation(translateAnimation);
-        signInPromptTV.setVisibility(View.VISIBLE);
-        signInButton.setVisibility(View.VISIBLE);
-        signInPromptTV.startAnimation(fadeInAnimation);
-        signInButton.startAnimation(buttonAnimation);
+        loginScreenTV.setVisibility(View.VISIBLE); // Make the welcome text visible
+        loginScreenTV.startAnimation(loginScreenTVAnimation); // Start the fade in animation
+        loginScreenTV.startAnimation(translateAnimation); // Start the movement animation
+        signInPromptTV.setVisibility(View.VISIBLE); // Make the sign in prompt visible
+        signInButton.setVisibility(View.VISIBLE); // Make the sign in button visible
+        signInPromptTV.startAnimation(signInPromptTVAnimations); // Start the animation for the sign in prompt
+        signInButton.startAnimation(buttonAnimation); // Start the animations for the sign in button
     }
 }

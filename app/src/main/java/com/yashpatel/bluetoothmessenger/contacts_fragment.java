@@ -10,9 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
-public class everyone_fragment extends Fragment {
+public class contacts_fragment extends Fragment {
 
-    public everyone_fragment() {
+    public contacts_fragment() {
 
     }
 

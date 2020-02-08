@@ -8,20 +8,22 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
-
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
 public class MainActivity extends AppCompatActivity {
 
+    // Create bluetooth adapter variable -> not initialised for now
     BluetoothAdapter bAdapter;
 
+    // Allows the 3-dot menu to be shown
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_screen_menu, menu);
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(this, getSupportFragmentManager());
+        TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(tabPagerAdapter);
 
 

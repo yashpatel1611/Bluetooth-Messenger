@@ -1,5 +1,6 @@
 package com.yashpatel.bluetoothmessenger;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -72,6 +73,10 @@ public class LoginScreen extends AppCompatActivity {
     }
 
     private void mainActivitySwitch() {
+        requestPermissions(new String[]{Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN,
+                Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                199);
         Intent mainActivityIntent = new Intent(this, com.yashpatel.bluetoothmessenger.MainActivity.class);
         startActivity(mainActivityIntent);
         this.finish();

@@ -8,14 +8,45 @@
 
     <EditText
         android:id="@+id/editText4"
-        android:layout_width="360dp"
-        android:layout_height="49dp"
+        android:layout_width="328dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
+        android:autofillHints="  Enter message here"
         android:background="@drawable/chat_box"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="Enter message here"
+        android:imeOptions="actionSend"
+        android:inputType="text"
+        android:lines="5"
+        android:maxLines="10"
+        android:minLines="1"
+        android:scrollHorizontally="false"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="660dp"
+        app:layout_constraintBottom_toTopOf="@+id/editText4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@mipmap/send_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/editText4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editText4"
+        app:layout_constraintTop_toTopOf="@+id/editText4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

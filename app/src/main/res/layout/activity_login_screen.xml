@@ -8,6 +8,7 @@
     android:layout_centerHorizontal="true"
     android:theme="@style/Theme.AppCompat.NoActionBar"
     tools:context=".LoginScreen"
+    android:background="#000000"
     tools:ignore="ExtraText">
 
     <com.google.android.gms.common.SignInButton

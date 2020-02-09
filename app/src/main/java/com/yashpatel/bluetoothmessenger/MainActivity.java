@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Toast;
@@ -35,17 +36,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
-        bluetoothIntialisation();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("BlueChat");
 
         ViewPager viewPager = findViewById(R.id.viewPager);
-        setupViewPager(viewPager);
+        TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(tabPagerAdapter);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
 
+        bluetoothIntialisation();
         List<String> nearbyDevices = new ArrayList<>(getNearbyDevicesList());
 
 
@@ -53,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private List<String> getNearbyDevicesList() {
-        List<BluetoothDevice> nearbyDevices = new ArrayList<>();
-        nearbyDevices.addAll(bAdapter.getBondedDevices());
+        List<BluetoothDevice> nearbyDevices = new ArrayList<>(bAdapter.getBondedDevices());
         List<String> nearbyDevicesList = new ArrayList<>();
         for (int i = 0; i < nearbyDevices.size(); i++) {
             nearbyDevicesList.add(nearbyDevices.get(i).getName());
@@ -64,12 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(tabPagerAdapter);
-
-
-    }
 
     private void bluetoothIntialisation() {
 
@@ -77,12 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (bAdapter == null) {
             Toast.makeText(this, "Error: No Bluetooth module found on device", Toast.LENGTH_LONG).show();
+            this.finish();
 
         }
 
         if (!bAdapter.isEnabled()) {
-            Intent bluetoothIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(bluetoothIntent, 0);
+            bAdapter.enable();
         }
 
     }

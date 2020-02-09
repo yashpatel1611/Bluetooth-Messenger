@@ -7,6 +7,7 @@
     android:id="@+id/ConstraintLayout"
     android:name="MainActivty"
     android:layout_width="match_parent"
+    android:background="#000000"
     android:layout_height="match_parent">
 
 
@@ -14,7 +15,7 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="#000000"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,8 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             app:tabGravity="fill"
-            app:tabIndicatorColor="#00D9FF"
-            app:tabSelectedTextColor="#00D9FF">
+            app:tabIndicatorColor="#FFFFFF"
+            app:tabSelectedTextColor="#FFFFFF">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

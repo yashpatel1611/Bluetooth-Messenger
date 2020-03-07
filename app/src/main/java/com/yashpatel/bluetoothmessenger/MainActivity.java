@@ -2,22 +2,25 @@ package com.yashpatel.bluetoothmessenger;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Toast;
 
-import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
+        bluetoothIntialisation();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
 
-        bluetoothIntialisation();
         List<String> nearbyDevices = new ArrayList<>(getNearbyDevicesList());
 
 
@@ -55,7 +58,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private List<String> getNearbyDevicesList() {
-        List<BluetoothDevice> nearbyDevices = new ArrayList<>(bAdapter.getBondedDevices());
+        final List<BluetoothDevice> nearbyDevices = new ArrayList<>();
+        Intent discoverableIntent = new
+                Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+        BroadcastReceiver bReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    nearbyDevices.add(device);
+                    Log.e("devices2", device.getAddress());
+
+                }
+            }
+        };
+
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        registerReceiver(bReceiver, filter);
+
+//        nearbyDevices.addAll(bAdapter.getBondedDevices());
+        //startActivity(discoverableIntent);
+        bAdapter.startDiscovery();
         List<String> nearbyDevicesList = new ArrayList<>();
         for (int i = 0; i < nearbyDevices.size(); i++) {
             nearbyDevicesList.add(nearbyDevices.get(i).getName());
@@ -65,6 +90,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void setupViewPager(ViewPager viewPager) {
+        TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(this, getSupportFragmentManager());
+        viewPager.setAdapter(tabPagerAdapter);
+
+
+    }
 
     private void bluetoothIntialisation() {
 
@@ -72,12 +103,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (bAdapter == null) {
             Toast.makeText(this, "Error: No Bluetooth module found on device", Toast.LENGTH_LONG).show();
-            this.finish();
 
         }
 
         if (!bAdapter.isEnabled()) {
-            bAdapter.enable();
+            Intent bluetoothIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(bluetoothIntent, 0);
         }
 
     }

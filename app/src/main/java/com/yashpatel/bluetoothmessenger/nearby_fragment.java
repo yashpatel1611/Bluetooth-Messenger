@@ -9,16 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-
+//Class which will hold all the methods required for the 'nearby' tab fragment
 public class nearby_fragment extends Fragment {
 
+    //Constructor for fragment -> currently, empty
     public nearby_fragment() {
 
     }
 
+    //Method which will return the view associated with the fragment activity
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_nearby, container, false);
-        return fragmentView;
+        View fragmentView = inflater.inflate(R.layout.fragment_nearby, container, false); //Creates View object called fragmentView, which holds the required fragment
+        return fragmentView; //Return it to the class it was called from
     }
 }

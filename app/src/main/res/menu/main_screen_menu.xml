@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Below is the menu item => it will hold the items that the user can click on
+   layout width and height are match parent as it will take up maximum space given-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <!--Each item below will contain an action the user can perform-->
     <item
-        android:id="@+id/menu_new_content_facebook"
-        android:orderInCategory="100"
-        android:title="a"
+        android:id="@+id/menu_settings"
+        android:orderInCategory="1"
+        android:title="Settings"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/menu_new_content_twitter"
-        android:orderInCategory="200"
-        android:title="b"
+        android:id="@+id/menu_new_group"
+        android:orderInCategory="2"
+        android:title="New Group"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_new_contact"
+        android:orderInCategory="3"
+        android:title="New Contact"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_logout"
+        android:orderInCategory="4"
+        android:title="Logout"
         app:showAsAction="never" />
 </menu>

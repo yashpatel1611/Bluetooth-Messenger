@@ -18,6 +18,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 // Import all libraries needed to allow Google Sign-In authentication
 
@@ -62,21 +63,25 @@ public class LoginScreen extends AppCompatActivity {
 
 
     }
-
+    //Function called when the activity is started
     protected void onStart() {
         super.onStart();
+        //Get the last signed in account for the application
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        //If the account returned is not empty, i.e. there is an account present
+        //start the switch to the main activity
         if (account != null) {
             mainActivitySwitch();
 
         }
     }
 
+    //Function to switch to the main activity
     private void mainActivitySwitch() {
-        requestPermissions(new String[]{Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN,
-                Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CAMERA,
-                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                199);
+        //Ask for permissions first for the application
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH,
+                        Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 199);
         Intent mainActivityIntent = new Intent(this, com.yashpatel.bluetoothmessenger.MainActivity.class);
         startActivity(mainActivityIntent);
         this.finish();

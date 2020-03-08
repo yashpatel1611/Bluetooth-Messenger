@@ -20,16 +20,19 @@ import static android.view.inputmethod.EditorInfo.IME_ACTION_UNSPECIFIED;
 import static android.view.inputmethod.EditorInfo.IME_NULL;
 
 
+//Class which will hold all the methods required for the 'everyone' tab fragment
 public class everyone_fragment extends Fragment {
 
+    //Constructor for fragment -> currently, empty
     public everyone_fragment() {
 
     }
 
+    //Method which will return the view associated with the fragment activity
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_everyone, container, false);
-        return fragmentView;
+        View fragmentView = inflater.inflate(R.layout.fragment_everyone, container, false); //Creates View object called fragmentView, which holds the required fragment
+        return fragmentView; //Return it to the class it was called from
     }
 
     @Override

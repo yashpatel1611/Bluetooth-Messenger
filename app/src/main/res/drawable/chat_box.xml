@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><!-- res/drawable/rounded_edittext.xml -->
+<!--Uses a shape object to create the shape needed
+    Has padding of 10dp around it, shape is a rectangle-->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="10dp"
     android:shape="rectangle">
-
+<!--Set colour of rectangle-->
     <solid android:color="#505050" />
-
+<!--Define the corners of the rectangle to be rounded, makes it look smoother-->
     <corners
         android:bottomLeftRadius="10dp"
         android:bottomRightRadius="10dp"

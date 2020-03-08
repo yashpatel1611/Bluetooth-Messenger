@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--File for holding the incoming messages
+    Different to outgoing as these are aligned to the left hand side and include names-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp">
+
+<!--Below is where the name of the sender will go, has placeholder text set for developing purposes
+    Set to wrap content, prevents it taking up too much space
+    Given a margin so it will stay a certain distance from the left hand side
+    Text size not too small nor too large
+    Made to be above the message-->
+    <TextView
+        android:id="@+id/text_message_name_received"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Placeholder name"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+<!--Below is the text view for the message
+    Width and height set to wrap as it should not take more space than needed
+    given a margin to keep it a certain distance from the left hand side
+    given a margin to the top as well, so it does not touch the name text view
+    background set to a file created called message_box.xml
+    Maximum width set so that it does not overflow too much
+    Text colour set to white-->
+    <TextView
+        android:id="@+id/text_message_body_received"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/message_box"
+        android:maxWidth="240dp"
+        android:padding="8dp"
+        android:text="Placeholder text"
+        android:textColor="#ffffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_message_name_received" />
+<!--Final text view needed for the timestamp
+    This is a much tinier text view
+    Wraps content to prevent taking up too much space
+    Given dummy time for developing purposes-->
+    <TextView
+        android:id="@+id/text_message_time_received"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:text="11:40"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_message_body_received"
+        app:layout_constraintLeft_toRightOf="@+id/text_message_body_received" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

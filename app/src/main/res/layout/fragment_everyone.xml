@@ -9,7 +9,7 @@
 <!--EditText object placed below: this is a text box object into which the user can type into
     It's width and height are manually set so that it occupies a reasonable proportion of the screen
     It's given a margin from the bottom to ensure it is not touching the bottom part of the screen
-    Uses background as @drawable/chat_box, a custom made shape to remove the common text box shape
+    Uses background as @drawable/message_box, a custom made shape to remove the common text box shape
     Constrained to bottom, left and right of parent (layout) to ensure that it stays in the same place-->
     <EditText
         android:id="@+id/editText4"
@@ -18,7 +18,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
         android:autofillHints="  Enter message here"
-        android:background="@drawable/chat_box"
+        android:background="@drawable/message_box"
         android:hint="Enter message here"
         android:imeOptions="actionSend"
         android:inputType="text"
@@ -29,8 +29,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="HardcodedText" />
-
-    <ScrollView
+<!--This is the recycler view, it will hold all the messages for the user-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_everyone"
         android:layout_width="0dp"
         android:layout_height="660dp"
         app:layout_constraintBottom_toTopOf="@+id/editText4"
@@ -38,11 +39,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </ScrollView>
-
+    </androidx.recyclerview.widget.RecyclerView>
+<!--Button is the send button-->
     <Button
         android:id="@+id/button"
         android:layout_width="52dp"

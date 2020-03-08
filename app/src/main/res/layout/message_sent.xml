@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--File for outgoing messages
+    Layout set to match parent in width and wrap height around text
+    given padding of 8dp to top-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp">
+
+<!--Text view which holds the message sent
+    Set width and height to wrap content to prevent taking too much space
+    Given margin of 2dp from time stamp
+    background set to message_box.xml
+    Maximum width it can be is 240dp
+    Given placeholder text for developing purposes
+    Text colour is white for easier readability-->
+    <TextView
+        android:id="@+id/text_message_body_sent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:background="@drawable/message_box"
+        android:maxWidth="240dp"
+        android:padding="8dp"
+        android:text="Placeholder text"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toStartOf="@+id/text_message_time_sent"
+        app:layout_constraintTop_toTopOf="parent" />
+<!--Text view which holds the time stamp
+    Set width and height to wrap content to prevent taking too much space
+    Given margin of 8dp from right hand side, which is the edge of the screen-->
+    <TextView
+        android:id="@+id/text_message_time_sent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="24:24"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_message_body_sent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/text_message_body_sent"
+        tools:ignore="HardcodedText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

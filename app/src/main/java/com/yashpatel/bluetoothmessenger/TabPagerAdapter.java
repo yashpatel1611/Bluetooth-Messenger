@@ -1,18 +1,29 @@
 package com.yashpatel.bluetoothmessenger;
 
+import android.bluetooth.BluetoothDevice;
+
+import java.util.List;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
 //Created class called TabPagerAdepter which implements the functions from FragmentPagerAdapter
 //The class FragmentPagerAdapter is used to persistently keep the fragment manager as long as the user can return to it
 //This is useful as the fragments have to always be available to be used by the user
 //The functions getItem() and getCount() are part of the FragmentPagerAdapter class
 public class TabPagerAdapter extends FragmentPagerAdapter {
 
+    Fragment everyone = new everyone_fragment();
+    Fragment chats = new chats_fragment();
+    Fragment contacts = new contacts_fragment();
+    Fragment nearby = new nearby_fragment();
+
     //Constructor for class, sends the incoming fragment manager to the super class
     public TabPagerAdapter(FragmentManager fm) {
         super(fm);
+
     }
 
     //This function is used to get the fragment necessary. It will return the activity based on the position of the view pager
@@ -24,21 +35,28 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
         //Here, the variable fragment will be assigned a different fragment depending on the value 'position'
         switch (position) {
             case 0:
-                fragment = new everyone_fragment(); //Set fragment to the everyone_fragment fragment
+                fragment = everyone; //Set fragment to the everyone_fragment fragment
                 break;
             case 1:
-                fragment = new nearby_fragment(); //Set fragment to the nearby_fragment fragment
+                fragment = nearby; //Set fragment to the nearby_fragment fragment
                 break;
             case 2:
-                fragment = new chats_fragment(); //Set fragment to the chats_fragment
+                fragment = chats; //Set fragment to the chats_fragment
                 break;
             case 3:
-                fragment = new contacts_fragment(); //Set fragment to the contacts_fragment
+                fragment = contacts; //Set fragment to the contacts_fragment
                 break;
         }
 
         //Return the fragment
         return fragment;
+
+    }
+
+    //This is a function which will take in the deviceList passed in from BluetoothManager and update the fragments' respective device lists
+    public void updateDeviceList(List<BluetoothDevice> deviceList) {
+        ((everyone_fragment) everyone).updateNearbyDevices(deviceList);
+        ((nearby_fragment) nearby).updateNearbyDevices(deviceList);
 
     }
 

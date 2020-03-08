@@ -59,10 +59,11 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
-        runAnimations(); // Backgroup setups are finished -> start runAnimations function for user
+        runAnimations(); // Background setups are finished -> start runAnimations function for user
 
 
     }
+
     //Function called when the activity is started
     protected void onStart() {
         super.onStart();
@@ -71,6 +72,11 @@ public class LoginScreen extends AppCompatActivity {
         //If the account returned is not empty, i.e. there is an account present
         //start the switch to the main activity
         if (account != null) {
+            //Ask for permissions first for the application
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH,
+                    Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION}, 199);
+
             mainActivitySwitch();
 
         }
@@ -78,10 +84,6 @@ public class LoginScreen extends AppCompatActivity {
 
     //Function to switch to the main activity
     private void mainActivitySwitch() {
-        //Ask for permissions first for the application
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH,
-                        Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.CAMERA,
-                        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 199);
         Intent mainActivityIntent = new Intent(this, com.yashpatel.bluetoothmessenger.MainActivity.class);
         startActivity(mainActivityIntent);
         this.finish();

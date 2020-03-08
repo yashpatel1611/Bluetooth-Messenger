@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.yashpatel.bluetoothmessenger">
 
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED"
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_PRIVILEGED"
         tools:ignore="ProtectedPermissions" />
 
     <application
@@ -26,13 +27,13 @@
             </intent-filter>
         </activity>
         <receiver
-        android:name=".MainActivity"
-        android:enabled="true"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="BluetoothDevice.ACTION_FOUND" />
-        </intent-filter>
-    </receiver>
+            android:name="MainActivity"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="BluetoothDevice.ACTION_FOUND" />
+            </intent-filter>
+        </receiver>
         <activity android:name=".MainActivity" />
     </application>
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -17,15 +18,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
     //Tags needed so that the correct layout is shown for the message
     private final int VIEW_MESSAGE_RECEIVED = 0;
     private final int VIEW_MESSAGE_SENT = 1;
-    List<BluetoothDevice> data; //Bluetooth list called data. This is temporary and will be adjusted once bluetooth messenging works
+    UserMessage[] data; //Bluetooth list called data. This is temporary and will be adjusted once bluetooth messenging works
     private LayoutInflater inflater; //Layout inflater object, helps setup the layout file
     private Context mContext; //Context object, needed to get inflater from main activity
 
     //Constructor for class -> Takes in context (main activity) and a data attribute (uses devices list for debugging)
-    RecyclerViewAdapter(Context context, List<BluetoothDevice> devices) {
+    RecyclerViewAdapter(Context context, UserMessage[] messages) {
         mContext = context;
         inflater = LayoutInflater.from(mContext);
-        data = devices;
+        data = messages;
     }
 
     //Method onCreateViewHolder -> called when the recycler view needs a new holder for a data item
@@ -54,15 +55,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
     //This a function that is called by the recycler view when data needs to be displayed at a specific position
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        BluetoothDevice device = data.get(position);
-        ((messageReceivedHolder) holder).bind(device);
+        UserMessage message = data[position];
+        ((messageReceivedHolder) holder).bind(message);
 
     }
 
     //This is a function which returns the size of the data intended to be displayed
     @Override
     public int getItemCount() {
-        return data.size();
+        return data.length;
     }
 
     //Nested class (or inner class) for setting up views with the data provided
@@ -80,12 +81,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         }
 
         //This is a bind function, it will essentially populate the view with the relevant data
-        //Currently it takes in dummy data (which I have chosen to be the nearby devices list)
         //The function will set the textviews to the required information
-        void bind(BluetoothDevice device) {
-            message.setText(device.getAddress());
-            senderName.setText("TestName");
-            timeSent.setText("25:25");
+        void bind(UserMessage userMessage) {
+            message.setText(userMessage.getMessage());
+            senderName.setText(userMessage.getSender());
+            timeSent.setText((new Date((long)userMessage.getDate())).getHours() + (new Date((long)userMessage.getDate())).getMinutes());
         }
 
     }
@@ -103,7 +103,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         }
 
         //This is a bind function, it populates the view with the relevant data
-        //Takes in dummy data for now as I have not developed the message holder yet
         //Will set text views with relevant information
         void bind(BluetoothDevice device){
             message.setText(device.getAddress());

@@ -6,8 +6,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.util.Log;
 import android.widget.Toast;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,8 @@ class BluetoothManager {
     private BluetoothAdapter bAdapter; //Bluetooth adapter object to allow the discovery for nearby devices
     private BroadcastReceiver discoveryReceiver;
     private BroadcastReceiver bReceiver;
+
+    private BluetoothConnectionServer bcs; //Create a BluetoothConnectionServer object
 
     //Constructor which takes in Context (in this case, the mainActivity class) and TabPagerAdapter (so that a new one is not needed)
     BluetoothManager(Context context, TabPagerAdapter adapter) {
@@ -40,6 +44,9 @@ class BluetoothManager {
         if (!bAdapter.isEnabled()) { //If the bluetooth module is not enabled i.e. the bluetooth is toggled off
             bAdapter.enable();
         }
+
+        bcs = new BluetoothConnectionServer(true);
+        bcs.run();
 
     }
 
@@ -79,9 +86,13 @@ class BluetoothManager {
 
                     //If the nearbyDevices list does not contain the device just discovered
                     //Add the bluetooth device to the nearbyDevices list and update the device list in the tabPagerAdapter
-                    if (!nearbyDevices.contains(bDevice)) {
-                        nearbyDevices.add(bDevice);
-                        tabPagerAdapter.updateDeviceList(nearbyDevices);
+                    if (!nearbyDevices.contains(bDevice) && nearbyDevices.size() < 4) {
+                        Log.v("Devices", bDevice.getAddress());
+                        if (checkIfConnectable(bDevice)) { //Check if device can be connected to using function
+                            nearbyDevices.add(bDevice);
+                            tabPagerAdapter.updateDeviceList(nearbyDevices);
+                            bcs.nearbyDevices = nearbyDevices;
+                        }
                     }
                 }
 
@@ -100,6 +111,9 @@ class BluetoothManager {
                     nearbyDevices.clear();
                     //Update the nearbyDevices list variables in the TabPagerAdapter class
                     tabPagerAdapter.updateDeviceList(nearbyDevices);
+
+
+
                     //Start the discovery again
                     bAdapter.startDiscovery();
                 }
@@ -115,6 +129,33 @@ class BluetoothManager {
         //Start the discover of bluetooth devices
         bAdapter.startDiscovery();
 
+    }
+
+    //Function to check if the device is connectable
+    boolean checkIfConnectable(BluetoothDevice device) {
+        //device.createBond() returns a boolean value
+        //True if bond creation in progress
+//        //False if not possible
+        return true;
+//        if (device.createBond()) {
+//            //Try removing the bond that is about to be made
+//            //This prevents unnecessary connections
+//            try {
+//                //From the BluetoothDevice class, get the method 'removeBond'
+//                Method m = device.getClass().getMethod("removeBond", (Class[]) null);
+//                //Invoke this method on the device
+//                m.invoke(device, (Object[]) null);
+//            } catch (Exception e) {
+//                //If the above throws an error, push the trace to error log
+//                Log.e("Bond", e.getMessage());
+//            }
+//            bAdapter.startDiscovery(); //Start the discovery again (createBond pauses discovery)
+//            return true;
+//        } else if (!device.createBond()){ //If the device cannot be connected to
+//            bAdapter.startDiscovery(); //Start the discovery again
+//            return false;
+//        }
+//        return false;
     }
 
     //Function called when MainActivity is destroyed -> cleans up class and finishes jobs

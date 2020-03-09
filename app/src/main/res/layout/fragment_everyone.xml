@@ -12,7 +12,7 @@
     Uses background as @drawable/message_box, a custom made shape to remove the common text box shape
     Constrained to bottom, left and right of parent (layout) to ensure that it stays in the same place-->
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/message_box_everyone"
         android:layout_width="328dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -42,7 +42,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 <!--Button is the send button-->
     <Button
-        android:id="@+id/button"
+        android:id="@+id/send_button_everyone"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginStart="12dp"

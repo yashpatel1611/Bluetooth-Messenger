@@ -1,6 +1,7 @@
 package com.yashpatel.bluetoothmessenger;
 
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 //This is useful as the fragments have to always be available to be used by the user
 //The functions getItem() and getCount() are part of the FragmentPagerAdapter class
 public class TabPagerAdapter extends FragmentPagerAdapter {
+    RecyclerViewAdapter everyoneRecyclerAdapter;
+    RecyclerViewAdapter nearbyRecyclerAdapter;
 
     Fragment everyone = new everyone_fragment();
     Fragment chats = new chats_fragment();
@@ -21,8 +24,9 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
     Fragment nearby = new nearby_fragment();
 
     //Constructor for class, sends the incoming fragment manager to the super class
-    public TabPagerAdapter(FragmentManager fm) {
+    public TabPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
+        everyoneRecyclerAdapter = new RecyclerViewAdapter(context);
 
     }
 
